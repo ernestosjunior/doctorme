@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { DoctorRepository } from 'src/infra/database/repositories/doctor.repository';
+import { DoctorRepository } from 'src/infra/database/prisma/repositories/doctor.repository';
 
 @Injectable()
 export class GetDoctorByIdUseCase {

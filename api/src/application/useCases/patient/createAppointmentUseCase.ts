@@ -3,9 +3,9 @@ import {
   NotFoundException,
   UnprocessableEntityException,
 } from '@nestjs/common';
-import { AppointmentRepository } from 'src/infra/database/repositories/appointment.repository';
-import { PatientRepository } from 'src/infra/database/repositories/patient.repository';
-import { ScheduleRepository } from 'src/infra/database/repositories/schedule.repository';
+import { AppointmentRepository } from 'src/infra/database/prisma/repositories/appointment.repository';
+import { PatientRepository } from 'src/infra/database/prisma/repositories/patient.repository';
+import { ScheduleRepository } from 'src/infra/database/prisma/repositories/schedule.repository';
 
 @Injectable()
 export class CreateAppointmentUseCase {

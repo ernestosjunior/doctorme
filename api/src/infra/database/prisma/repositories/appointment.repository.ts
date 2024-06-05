@@ -1,8 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
+import { PrismaService } from '../prisma.service';
+import { Appointment } from '@prisma/client';
+import { AppointmentRepositoryAbstract } from 'src/domain/respositories/appointment.repository';
 
 @Injectable()
-export class AppointmentRepository {
+export class AppointmentRepository implements AppointmentRepositoryAbstract {
   constructor(private readonly prismaService: PrismaService) {}
 
   createAppointment(
@@ -10,7 +12,7 @@ export class AppointmentRepository {
     patientId: string,
     doctorId: string,
     date: Date,
-  ) {
+  ): Promise<Appointment> {
     return this.prismaService.$transaction(async (prisma) => {
       await prisma.schedule.update({
         where: { id: scheduleId },
