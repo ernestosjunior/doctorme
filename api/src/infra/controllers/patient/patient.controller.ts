@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { AuthenticatePatientUseCase } from 'src/application/useCases/patient/authenticatePatientUseCase';
 import { CreatePatientUseCase } from 'src/application/useCases/patient/createPatientUseCase';
 import { GetPatientByPhoneUseCase } from 'src/application/useCases/patient/getPatientByPhoneUseCase';
 
@@ -7,6 +8,7 @@ export class PatientController {
   constructor(
     private readonly getPatientByPhoneUseCase: GetPatientByPhoneUseCase,
     private readonly createPatientUseCase: CreatePatientUseCase,
+    private readonly authenticatePatientUseCase: AuthenticatePatientUseCase,
   ) {}
 
   @Get(':phone')
@@ -35,5 +37,12 @@ export class PatientController {
       firstName,
       lastName,
     );
+  }
+
+  @Post('authenticate')
+  async authenticatePatient(
+    @Body() { phone, password }: { phone: string; password: string },
+  ) {
+    return this.authenticatePatientUseCase.execute(phone, password);
   }
 }
