@@ -19,4 +19,35 @@ export class PatientRepository {
       },
     });
   }
+
+  getPatientById(id: string, includeAppointment: boolean = false) {
+    return this.prismaService.patient.findUnique({
+      where: { id },
+      include: { appointment: includeAppointment },
+    });
+  }
+
+  getUserByPhone(phone: string, includePatient: Boolean = false) {
+    return this.prismaService.user.findUnique({
+      where: { phone },
+      include: { patient: !!includePatient },
+    });
+  }
+
+  createUseAndPatient(
+    firstName: string,
+    lastName: string,
+    phone: string,
+    password: string,
+  ) {
+    return this.prismaService.user.create({
+      data: {
+        phone,
+        password,
+        patient: {
+          create: { firstName, lastName, phone },
+        },
+      },
+    });
+  }
 }
