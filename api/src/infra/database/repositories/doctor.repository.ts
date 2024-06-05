@@ -9,4 +9,11 @@ export class DoctorRepository {
   listDoctor(): Promise<Doctor[]> {
     return this.prismaService.doctor.findMany({ include: { schedule: true } });
   }
+
+  getDoctorById(id: string, includeSchedule: boolean = false) {
+    return this.prismaService.doctor.findUnique({
+      where: { id },
+      include: { schedule: includeSchedule },
+    });
+  }
 }

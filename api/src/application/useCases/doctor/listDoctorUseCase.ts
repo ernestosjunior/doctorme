@@ -1,6 +1,6 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Doctor } from '@prisma/client';
-import { DoctorRepository } from 'src/infra/database/repositories/Doctor';
+import { DoctorRepository } from 'src/infra/database/repositories/doctor.repository';
 
 @Injectable()
 export class ListDoctorUseCase {
@@ -10,7 +10,7 @@ export class ListDoctorUseCase {
     const doctors = await this.doctorRepository.listDoctor();
 
     if (!doctors) {
-      throw new BadRequestException('No doctors found');
+      throw new NotFoundException('No doctors found');
     }
 
     return doctors;
