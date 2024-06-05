@@ -26,7 +26,7 @@ export class CreatePatientUseCase {
 
     const hash = hashPassword(password);
 
-    const user = await this.patientRepository.createUseAndPatient(
+    const user = await this.patientRepository.createUserAndPatient(
       firstName,
       lastName,
       phone,

@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { AuthenticatePatientUseCase } from 'src/application/useCases/patient/authenticatePatientUseCase';
+import { CreateAppointmentUseCase } from 'src/application/useCases/patient/createAppointmentUseCase';
 import { CreatePatientUseCase } from 'src/application/useCases/patient/createPatientUseCase';
 import { GetPatientByPhoneUseCase } from 'src/application/useCases/patient/getPatientByPhoneUseCase';
 
@@ -9,6 +10,7 @@ export class PatientController {
     private readonly getPatientByPhoneUseCase: GetPatientByPhoneUseCase,
     private readonly createPatientUseCase: CreatePatientUseCase,
     private readonly authenticatePatientUseCase: AuthenticatePatientUseCase,
+    private readonly createAppointmentUseCase: CreateAppointmentUseCase,
   ) {}
 
   @Get(':phone')
@@ -44,5 +46,13 @@ export class PatientController {
     @Body() { phone, password }: { phone: string; password: string },
   ) {
     return this.authenticatePatientUseCase.execute(phone, password);
+  }
+
+  @Post(':patientId/appointment')
+  async createAppointment(
+    @Param('patientId') patientId: string,
+    @Body() { scheduleId }: { scheduleId: string },
+  ) {
+    return this.createAppointmentUseCase.execute(patientId, scheduleId);
   }
 }

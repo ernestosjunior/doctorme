@@ -34,7 +34,7 @@ export class PatientRepository {
     });
   }
 
-  createUseAndPatient(
+  createUserAndPatient(
     firstName: string,
     lastName: string,
     phone: string,
